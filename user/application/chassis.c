@@ -42,10 +42,12 @@ static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 
 /**
   * @brief          发送电流数据给电机
   * @param[in]      wheel_speed: 四个轮子速度
+	* @note           底盘的轮子正电流为顺时针转动
+	* @warning        一定要使用速度环PID控制电机，直接用电流控制会导致电机全速运转 
   */
 static void chassis_control_loop(fp32 wheel_speed[4])  
 {
-		//设置各电机的的目标转速值（单位rpm）目前还未确定映射关系
+		/// 设置各电机的的目标转速值（单位rpm）目前还未确定映射关系
 		drive_motor_pid[0].target = wheel_speed[0]*3000/PI;  //   
 		drive_motor_pid[1].target = wheel_speed[1]*3000/PI;  //
 		drive_motor_pid[2].target = -wheel_speed[2]*3000/PI;  //
@@ -56,7 +58,7 @@ static void chassis_control_loop(fp32 wheel_speed[4])
 		drive_motor_pid[2].f_cal_pid(&drive_motor_pid[2],motor_data[2]->speed_rpm);   //3号电机的pid电流计算值
 		drive_motor_pid[3].f_cal_pid(&drive_motor_pid[3],motor_data[3]->speed_rpm);   //4号电机的pid电流计算值
 		
-		// 将电流值发送给底盘电机
+		/// 将电流值发送给底盘电机
 		CAN_cmd_chassis(drive_motor_pid[0].output,drive_motor_pid[1].output,drive_motor_pid[2].output,drive_motor_pid[3].output);					
 		HAL_Delay(2);
 }	
@@ -67,7 +69,7 @@ static void chassis_control_loop(fp32 wheel_speed[4])
 
 void chassis_task()
 {
-	//底盘前后，左右，旋转速度
+	/// 底盘前后，左右，旋转速度
 	fp32 vx_set=0.1f;
 	fp32 vy_set=0.1f;
 	fp32 wz_set=0.0f;

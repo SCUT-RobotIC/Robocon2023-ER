@@ -26,7 +26,6 @@
 #include "stdio.h"
 #include "bsp_can.h"
 #include "CAN_receive.h"
-#include "pid.h"
 #include "chassis.h"
 
 
@@ -95,16 +94,12 @@ int main(void)
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
 	
-//***********************************CAN控制代码****Begin****************************************
   can_filter_init();       //配置CAN过滤器
 	HAL_CAN_Start(&hcan1);   //开启CAN总开关
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);//启动CAN接收中断	
 	
-	///PID 初始化
+	/// PID 初始化
 	chassis_init();
-
-	chassis_state();
-	
 	
   /* USER CODE END 2 */
 
