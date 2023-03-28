@@ -16,6 +16,23 @@ typedef unsigned char bool_t;
 typedef float fp32;
 typedef double fp64;
 
+/* remote data struct */
+typedef struct _RemoteData_TypeDef
+{
+	uint16_t size;
+	uint16_t flags;
+	uint16_t xpos;
+	uint16_t ypos;
+	uint16_t zpos;
+	uint16_t rpos;
+	uint16_t upos;
+	uint16_t vpos;
+	uint16_t buttons;
+	uint16_t buttonNumbers;
+	uint16_t pov;
+	uint16_t reserved1;
+	uint16_t reserved2;
+}RemoteData;
 
 #endif
 

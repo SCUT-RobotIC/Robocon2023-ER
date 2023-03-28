@@ -11,9 +11,7 @@
 pid_type_def              motor_pid;      //声明PID数据结构体1
 extern PID_TypeDef   drive_motor_pid[4];  //声明PID数据结构体2
 const motor_measure_t   *motor_data[4];  //声明电机结构体指针
-fp32 vx=0.0f;
-fp32 vy=0.0f;
-fp32 wz=0.0f;
+
 /**
   * @brief          PID初始化
   */
@@ -25,6 +23,10 @@ void chassis_init(){
   }
 }
 
+uint16_t remotedata[13];
+fp32 vx=0.0f;
+fp32 vy=0.0f;
+fp32 wz=0.0f;
 /**
   * @brief          四个麦轮速度是通过三个参数计算出来的
   * @param[in]      vx_set: 纵向速度
