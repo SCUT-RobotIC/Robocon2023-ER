@@ -9,7 +9,7 @@ void Usart_Receive_Data(UART_HandleTypeDef *huart)
         {
             __HAL_UART_CLEAR_IDLEFLAG(huart);						//清除空闲中断标志 
 					 Data_Processing(buffer,remotedata);
-           memset(buffer,0,255);                                    //清空缓冲区
+           //memset(buffer,0,255);                                    //清空缓冲区
            HAL_UART_Receive_DMA(huart,buffer,255);               //重启开始DMA传输
         }
 }

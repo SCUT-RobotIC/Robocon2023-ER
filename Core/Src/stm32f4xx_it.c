@@ -221,11 +221,11 @@ void CAN1_RX0_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+	Usart_Receive_Data(&huart1);
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-  Usart_Receive_Data(&huart1);
+  
   /* USER CODE END USART1_IRQn 1 */
 }
 
