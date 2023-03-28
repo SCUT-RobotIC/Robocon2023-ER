@@ -11,7 +11,9 @@
 pid_type_def              motor_pid;      //声明PID数据结构体1
 extern PID_TypeDef   drive_motor_pid[4];  //声明PID数据结构体2
 const motor_measure_t   *motor_data[4];  //声明电机结构体指针
-
+fp32 vx=0.0f;
+fp32 vy=0.0f;
+fp32 wz=0.0f;
 /**
   * @brief          PID初始化
   */
@@ -33,10 +35,10 @@ void chassis_init(){
   */
 static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 vy_set, const float wz_set, fp32 wheel_speed[4]){
 	
-    wheel_speed[0] = (vx_set + (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;
-    wheel_speed[1] = (vy_set - (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;
-    wheel_speed[2] = (vy_set - (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;
-    wheel_speed[3] = (vx_set + (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;	
+    wheel_speed[0] = 19*(vx_set + (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;
+    wheel_speed[1] = -19*(vy_set - (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;
+    wheel_speed[2] = -19*(vx_set - (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;
+    wheel_speed[3] = 19*(vy_set + (CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER *wz_set)/Wheel_Radius;	
 }
 
 /**
@@ -48,10 +50,10 @@ static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 
 static void chassis_control_loop(fp32 wheel_speed[4])  
 {
 		/// 设置各电机的的目标转速值（单位rpm）目前还未确定映射关系
-		drive_motor_pid[0].target = wheel_speed[0]*3000/PI;  //   
-		drive_motor_pid[1].target = wheel_speed[1]*3000/PI;  //
-		drive_motor_pid[2].target = -wheel_speed[2]*3000/PI;  //
-		drive_motor_pid[3].target = -wheel_speed[3]*3000/PI;  //
+		drive_motor_pid[0].target = wheel_speed[0]*30/PI;  //   
+		drive_motor_pid[1].target = wheel_speed[1]*30/PI;  //
+		drive_motor_pid[2].target = wheel_speed[2]*30/PI;  //
+		drive_motor_pid[3].target = wheel_speed[3]*30/PI;  //
 				
 		drive_motor_pid[0].f_cal_pid(&drive_motor_pid[0],motor_data[0]->speed_rpm);   //1号电机的pid电流计算值
 		drive_motor_pid[1].f_cal_pid(&drive_motor_pid[1],motor_data[1]->speed_rpm);   //2号电机的pid电流计算值
@@ -70,12 +72,9 @@ static void chassis_control_loop(fp32 wheel_speed[4])
 void chassis_task()
 {
 	/// 底盘前后，左右，旋转速度
-	fp32 vx_set=0.1f;
-	fp32 vy_set=0.1f;
-	fp32 wz_set=0.0f;
 	
 	fp32 wheel_speed[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-	chassis_vector_to_mecanum_wheel_speed(vx_set, vy_set, wz_set, wheel_speed);
+	chassis_vector_to_mecanum_wheel_speed(vx, vy, wz, wheel_speed);
 	
 	chassis_control_loop(wheel_speed);
 }

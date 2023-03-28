@@ -19,6 +19,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "can.h"
+#include "dma.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -48,7 +50,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t buffer[255];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,8 +92,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_CAN1_Init();
   MX_CAN2_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	
   can_filter_init();       //配置CAN过滤器
@@ -100,6 +104,10 @@ int main(void)
 	
 	/// PID 初始化
 	chassis_init();
+	
+	///串口DMA初始化
+	__HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE); //使能串口空闲中断                   
+     HAL_UART_Receive_DMA(&huart1,buffer,255);
 	
   /* USER CODE END 2 */
 
@@ -164,8 +172,6 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-
-
 
 /* USER CODE BEGIN 4 */
 
