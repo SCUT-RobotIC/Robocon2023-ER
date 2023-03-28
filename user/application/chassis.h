@@ -5,8 +5,8 @@
 #include "CAN_receive.h"
 
 #define CHASSIS_WZ_SET_SCALE 0.1f	
-#define MOTOR_DISTANCE_TO_CENTER 0.2f
-#define Wheel_Radius 0.2f
+#define MOTOR_DISTANCE_TO_CENTER 0.55273f
+#define Wheel_Radius 0.076f
 #define PI 3.1415926f
 
 void chassis_init(void);
