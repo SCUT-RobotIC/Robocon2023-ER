@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../user/application;../user/boards;../user/pid;../user/GraySensor;../user/openmv;..\user\idlenew</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../user/application;../user/boards;../user/pid;../user/GraySensor;../user/openmv;../user/idlenew</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -412,6 +412,11 @@
               <FileName>chassis.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\user\application\chassis.c</FilePath>
+            </File>
+            <File>
+              <FileName>idlenew.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\idlenew\idlenew.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -549,11 +554,6 @@
               <FileName>stm32f4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>idlenew.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\user\idlenew\idlenew.c</FilePath>
             </File>
           </Files>
         </Group>

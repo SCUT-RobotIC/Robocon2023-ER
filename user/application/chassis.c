@@ -27,6 +27,7 @@ uint16_t remotedata[13];
 fp32 vx=0.0f;
 fp32 vy=0.0f;
 fp32 wz=0.0f;
+fp32 wheel_speed[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 /**
   * @brief          四个麦轮速度是通过三个参数计算出来的
   * @param[in]      vx_set: 纵向速度
@@ -75,7 +76,9 @@ void chassis_task()
 {
 	/// 底盘前后，左右，旋转速度
 	
-	fp32 wheel_speed[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+//  fp32 wheel_speed[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+//	vx=((float)remotedata[2])/65535.0f-0.5f;
+//	vy=((float)remotedata[3])/65535.0f-0.5f;
 	chassis_vector_to_mecanum_wheel_speed(vx, vy, wz, wheel_speed);
 	
 	chassis_control_loop(wheel_speed);

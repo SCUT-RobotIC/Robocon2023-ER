@@ -1,7 +1,7 @@
 #include "idlenew.h"
 #include "string.h"
 #include "usart.h"
-
+#include "chassis.h"
 
 void Usart_Receive_Data(UART_HandleTypeDef *huart)
 {
@@ -9,6 +9,8 @@ void Usart_Receive_Data(UART_HandleTypeDef *huart)
         {
             __HAL_UART_CLEAR_IDLEFLAG(huart);						//清除空闲中断标志 
 					 Data_Processing(buffer,remotedata);
+					 vx=((float)remotedata[2])/65535.0f-0.5f;
+	         vy=((float)remotedata[3])/65535.0f-0.5f;
            //memset(buffer,0,255);                                    //清空缓冲区
            HAL_UART_Receive_DMA(huart,buffer,255);               //重启开始DMA传输
         }
