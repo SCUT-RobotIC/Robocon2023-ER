@@ -14,5 +14,10 @@ static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 
 static void chassis_control_loop(fp32 wheel_speed[4]);
 void chassis_task(void);
 void chassis_state(void);
-
+static void compute_pid(void);
+void chassis_pid(void);
+static void send_can(void);
+void chassis_sendcan(void);
+static void change_speed(void);
+void chassis_changeSpeed(const uint16_t vx_set, const uint16_t vy_set, const uint16_t wz_set);
 #endif

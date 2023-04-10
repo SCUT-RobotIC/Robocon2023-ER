@@ -849,12 +849,13 @@ interwork --depend=motor89\startup_stm32f407xx.d -omotor89\startup_stm32f407xx.
 ARM Macro Assembler    Page 14 
 
 
-o -I.\RTE\_Motor89 -IC:\Users\56428\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMS
-IS\Core\Include -IC:\Users\56428\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.1
-5.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\56428\AppData\Local\Ar
-m\Packs\Keil\STM32F4xx_DFP\2.15.0\Device\Include --predefine="__UVISION_VERSION
- SETA 536" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --predef
-ine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx.s
+o -I../Core/Inc -I.\RTE\_Motor89 -IC:\Users\56428\AppData\Local\Arm\Packs\ARM\C
+MSIS\5.8.0\CMSIS\Core\Include -IC:\Users\56428\AppData\Local\Arm\Packs\Keil\STM
+32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\56428\Ap
+pData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Device\Include --predefine="__U
+VISION_VERSION SETA 536" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SE
+TA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f4
+07xx.s
 
 
 
