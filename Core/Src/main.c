@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -30,7 +31,7 @@
 #include "bsp_can.h"
 #include "CAN_receive.h"
 #include "chassis.h"
-
+#include "motors.h"
 
 /* USER CODE END Includes */
 
@@ -98,6 +99,11 @@ int main(void)
   MX_CAN2_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  MX_TIM1_Init();
+  MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_TIM9_Init();
+  MX_TIM12_Init();
   /* USER CODE BEGIN 2 */
 	
   can_filter_init();       //配置CAN过滤器
@@ -110,6 +116,7 @@ int main(void)
 	///串口DMA初始化
 	__HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE); //使能串口空闲中断                   
   HAL_UART_Receive_DMA(&huart1,buffer,255);
+	USER_TIM_PWM_Init();
 	
   /* USER CODE END 2 */
 

@@ -47,3 +47,4 @@ motor89\freertos.o: ../user/application/chassis.h
 motor89\freertos.o: ../user/pid/pid.h
 motor89\freertos.o: ../user/application/struct_typedef.h
 motor89\freertos.o: ../user/application/CAN_receive.h
+motor89\freertos.o: ../user/motors/motors.h

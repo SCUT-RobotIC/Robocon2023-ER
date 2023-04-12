@@ -7,6 +7,7 @@
 #include "cmsis_os.h"
 
 extern uint8_t buffer[255];
+extern uint16_t lastRemote[13];
 extern uint16_t remotedata[13];
 extern fp32 vx;
 extern fp32 vy;

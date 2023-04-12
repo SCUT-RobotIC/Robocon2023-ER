@@ -45,6 +45,7 @@ motor89\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 motor89\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 motor89\main.o: ../Core/Inc/can.h
 motor89\main.o: ../Core/Inc/dma.h
+motor89\main.o: ../Core/Inc/tim.h
 motor89\main.o: ../Core/Inc/usart.h
 motor89\main.o: ../Core/Inc/gpio.h
 motor89\main.o: C:\download\ARM\ARMCC\Bin\..\include\stdio.h
@@ -53,3 +54,4 @@ motor89\main.o: ../user/application/struct_typedef.h
 motor89\main.o: ../user/application/CAN_receive.h
 motor89\main.o: ../user/application/chassis.h
 motor89\main.o: ../user/pid/pid.h
+motor89\main.o: ../user/motors/motors.h
