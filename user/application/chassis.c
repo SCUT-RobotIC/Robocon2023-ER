@@ -133,7 +133,7 @@ void chassis_changeSpeed(const uint16_t vx_set, const uint16_t vy_set, const uin
 		wz=-(32000-(float)wz_set)/32000.0f;						
 	else wz=0;
 					
-	vx=((float)vx_set)/65535.0f-0.5f;
+	vx=-(((float)vx_set)/65535.0f-0.5f);
 	vy=((float)vy_set)/65535.0f-0.5f;
 	
 	chassis_vector_to_mecanum_wheel_speed(vx, vy, wz, wheel_speed);

@@ -168,17 +168,18 @@ void TaskAssignTask(void *argument)
 			{
 				if((remotedata[8]>>4)&1){
 					if(flag==0){
-					 BTS7960_Control(350,0);
+					 Shot_Control(99);
 					 flag=1;
 					}
 				  else{
-					 BTS7960_Control(0,0);
+					 Shot_Control(0);
 					 flag=0;
 				  }
 			 }		
 		  }	
       lastRemote[8] = remotedata[8];			
 	}
+		
 		
 //		if(lastRemote[9]!=remotedata[9]){
 //			if(remotedata[9]!=0)

@@ -20,6 +20,7 @@ void Usart_Receive_Data(UART_HandleTypeDef *huart)
 						   break;
 					   }
 					 }
+
 					 
 					 if(flag==1){
 						  flag=0;
@@ -35,4 +36,9 @@ void Data_Processing(uint8_t *uartBuffer, uint16_t *data)
 	for (int i = 0; i < 13; i++){
 		data[i] =(uartBuffer[2*i]<<8) | uartBuffer[2*i+1];
 	}	
+}
+
+void GPIO_EXIT(void)
+{
+	HAL_GPIO_WritePin(GPIOF,GPIO_PIN_13,GPIO_PIN_RESET);
 }
