@@ -64,7 +64,14 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+  void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+	{
+		switch(GPIO_Pin)
+		{
+			case MOTOR_SWITCH_LEFT_UP_Pin:
+				HAL_GPIO_TogglePin(GPIOF,GPIO_PIN_13);
+		}
+	}
 /* USER CODE END 0 */
 
 /**
@@ -74,7 +81,7 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
