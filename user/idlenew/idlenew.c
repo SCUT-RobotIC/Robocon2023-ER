@@ -7,9 +7,9 @@
 void Usart_Receive_Data(UART_HandleTypeDef *huart)
 {
 	int flag=0;
-        if(RESET != __HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE))   //ÅĞ¶ÏÊÇ·ñÊÇ¿ÕÏĞÖĞ¶Ï
+        if(RESET != __HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE))   //åˆ¤æ–­æ˜¯å¦æ˜¯ç©ºé—²ä¸­æ–­
         {
-            __HAL_UART_CLEAR_IDLEFLAG(huart);						//Çå³ı¿ÕÏĞÖĞ¶Ï±êÖ¾ 
+            __HAL_UART_CLEAR_IDLEFLAG(huart);						//æ¸…é™¤ç©ºé—²ä¸­æ–­æ ‡å¿— 
 					 HAL_UART_DMAStop(huart);
 					 Data_Processing(buffer,remotedata);
 					
@@ -26,8 +26,8 @@ void Usart_Receive_Data(UART_HandleTypeDef *huart)
 						  flag=0;
 							xTaskResumeFromISR(myTaskAssignHandle);
 					 }
-           //memset(buffer,0,255);                                    //Çå¿Õ»º³åÇø
-           HAL_UART_Receive_DMA(huart,buffer,255);               //ÖØÆô¿ªÊ¼DMA´«Êä
+           //memset(buffer,0,255);                                    //æ¸…ç©ºç¼“å†²åŒº
+           HAL_UART_Receive_DMA(huart,buffer,255);               //é‡å¯å¼€å§‹DMAä¼ è¾“
         }
 }
 

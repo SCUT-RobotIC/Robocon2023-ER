@@ -1,4 +1,4 @@
-/*ÊÓÆµ½Ì³ÌÁ´½Ó https://www.bilibili.com/video/BV1UL411V7XK?p=2&share_source=copy_web   êÇ³Æ£ºº£Î¹Î¹Î¹*/
+/*è§†é¢‘æ•™ç¨‹é“¾æŽ¥ https://www.bilibili.com/video/BV1UL411V7XK?p=2&share_source=copy_web   æ˜µç§°ï¼šæµ·å–‚å–‚å–‚*/
 
 #include "bsp_GraySensor.h"
 #include "main.h"

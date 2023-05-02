@@ -2,7 +2,7 @@
 #include "math.h"
 
 
-//ÊäÈëµÄÊý¾Ý±£Ö¤ÔÚÕýÈ·µÄ·¶Î§ÄÚ
+//è¾“å…¥çš„æ•°æ®ä¿è¯åœ¨æ­£ç¡®çš„èŒƒå›´å†…
 
 #define LimitMax(input, max)   \
     {                          \
@@ -27,9 +27,9 @@
   * @retval         none
   */
 	
-PID_TypeDef    drive_motor_pid[4];           //ËÄ¸öµç»ú
+PID_TypeDef    drive_motor_pid[4];           //å››ä¸ªç”µæœº
 
-/*²ÎÊý³õÊ¼»¯-----------------------------*/
+/*å‚æ•°åˆå§‹åŒ–-----------------------------*/
 static void pid_param_init(
 	PID_TypeDef * pid, 
 	PID_ID    id,
@@ -46,12 +46,12 @@ static void pid_param_init(
 {
 	pid->id = id;		
 	
-	pid->ControlPeriod = period;  //Ã»ÓÃµ½
+	pid->ControlPeriod = period;  //æ²¡ç”¨åˆ°
 	pid->DeadBand = deadband;
 	pid->IntegralLimit = intergral_limit;
 	pid->MaxOutput = maxout;
 	pid->Max_Err = max_err;
-	pid->target = target;         //Ä¿±êÖµ
+	pid->target = target;         //ç›®æ ‡å€¼
 	
 	pid->kp = kp;
 	pid->ki = ki;
@@ -62,7 +62,7 @@ static void pid_param_init(
 
 /*--------------------------------------------------------------
 
- ÖÐÍ¾¸ü¸Ä²ÎÊýÉè¶¨
+ ä¸­é€”æ›´æ”¹å‚æ•°è®¾å®š
 
 */
 static void pid_reset(PID_TypeDef * pid, float kp, float ki, float kd)
@@ -72,33 +72,33 @@ static void pid_reset(PID_TypeDef * pid, float kp, float ki, float kd)
 	pid->kd = kd;
 }
 
-/*pid¼ÆËã-----------------------------------------------------------------------*/	
+/*pidè®¡ç®—-----------------------------------------------------------------------*/	
 static float pid_calculate(PID_TypeDef* pid, float measure)
 {
-	//  Êý¾ÝµÄ¸üÐÂ
-	pid->measure = measure;          //²âÁ¿ÖµµÈÓÚ±¾´Î×îÐÂ²âÁ¿Öµ
-	pid->last_err  = pid->err;       //ÉÏ´ÎÎó²îµÈÓÚ±¾´Î×îÐÂÎó²î
-	pid->last_output = pid->output;  //ÉÏ´ÎÊä³öµÈÓÚ±¾´Î×îÐÂÊä³ö
+	//  æ•°æ®çš„æ›´æ–°
+	pid->measure = measure;          //æµ‹é‡å€¼ç­‰äºŽæœ¬æ¬¡æœ€æ–°æµ‹é‡å€¼
+	pid->last_err  = pid->err;       //ä¸Šæ¬¡è¯¯å·®ç­‰äºŽæœ¬æ¬¡æœ€æ–°è¯¯å·®
+	pid->last_output = pid->output;  //ä¸Šæ¬¡è¾“å‡ºç­‰äºŽæœ¬æ¬¡æœ€æ–°è¾“å‡º
 	
-	pid->err = pid->target - pid->measure;  //Îó²îÖµ = Ä¿±êÖµ - ²âÁ¿Öµ
+	pid->err = pid->target - pid->measure;  //è¯¯å·®å€¼ = ç›®æ ‡å€¼ - æµ‹é‡å€¼
 	
-	//ÊÇ·ñ½øÈëËÀÇø
-	if((fabsf(pid->err) > pid->DeadBand))   //Îó²î´óÓÚËÀÇø
+	//æ˜¯å¦è¿›å…¥æ­»åŒº
+	if((fabsf(pid->err) > pid->DeadBand))   //è¯¯å·®å¤§äºŽæ­»åŒº
 	{
-			pid->pout = pid->kp * pid->err;      //pÊä³öÎªKp*Îó²î
-			pid->iout += (pid->ki * pid->err);   //iÊä³öÎªi+ki*Îó²î
-			pid->dout =  pid->kd * (pid->err - pid->last_err);  //dÊä³öÎªkd*£¨Îó²î-ÉÏ´ÎÎó²î£©
+			pid->pout = pid->kp * pid->err;      //pè¾“å‡ºä¸ºKp*è¯¯å·®
+			pid->iout += (pid->ki * pid->err);   //iè¾“å‡ºä¸ºi+ki*è¯¯å·®
+			pid->dout =  pid->kd * (pid->err - pid->last_err);  //dè¾“å‡ºä¸ºkd*ï¼ˆè¯¯å·®-ä¸Šæ¬¡è¯¯å·®ï¼‰
 			
-			//»ý·ÖÊÇ·ñ³¬³öÏÞÖÆ
+			//ç§¯åˆ†æ˜¯å¦è¶…å‡ºé™åˆ¶
 			if(pid->iout > pid->IntegralLimit)
 				   pid->iout = pid->IntegralLimit;       
 			if(pid->iout < - pid->IntegralLimit)
 				   pid->iout = - pid->IntegralLimit;
 			
-			//pidÊä³öºÍ
+			//pidè¾“å‡ºå’Œ
 			pid->output = pid->pout + pid->iout + pid->dout;   	
 
-			//pid->output = pid->output*0.7f + pid->last_output*0.3f;  //ÂË²¨£¿
+			//pid->output = pid->output*0.7f + pid->last_output*0.3f;  //æ»¤æ³¢ï¼Ÿ
 			if(pid->output>pid->MaxOutput)         
 			{
 				   pid->output = pid->MaxOutput;

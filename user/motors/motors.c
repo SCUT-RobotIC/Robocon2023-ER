@@ -24,19 +24,19 @@ void USER_TIM_PWM_Init(void)
 
 void Shot_Control(uint16_t pwmval)
 {
-	//“ª◊Û
+	//‰∏ÄÂ∑¶
 	__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, pwmval);//L_PWM
   __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 0);//R_PWM
-	//“ª”“
+	//‰∏ÄÂè≥
 	__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, pwmval);//L_PWM
   __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_4, 0);//R_PWM
-	//∂˛◊Û
+	//‰∫åÂ∑¶
 	__HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, pwmval);//L_PWM
-	//∂˛”“
+	//‰∫åÂè≥
 	__HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_2, pwmval);//L_PWM
-	//»˝◊Û
+	//‰∏âÂ∑¶
 	__HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_3, pwmval);//L_PWM
-	//»˝”“
+	//‰∏âÂè≥
 	__HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_4, pwmval);//R_PWM
 }
 

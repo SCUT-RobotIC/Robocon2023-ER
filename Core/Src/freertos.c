@@ -163,11 +163,11 @@ void TaskAssignTask(void *argument)
 		lastRemote[6] = remotedata[6];
 		}
 		
-		//°´¼ü
+		//æŒ‰é”®
 		if(lastRemote[8]!=remotedata[8]){
 			if(remotedata[8]!=0)
 			{
-				if((remotedata[8]>>4)&1)//¿ªÆô/¹Ø±ÕÄ¦²ÁÂÖ
+				if((remotedata[8]>>4)&1)//å¼€å¯/å…³é—­æ‘©æ“¦è½®
 				{
 					if(flag1==0){
 					 Shot_Control(99);
@@ -178,13 +178,13 @@ void TaskAssignTask(void *argument)
 					 flag1=0;
 				  }
 			  }
-			  else if((remotedata[8]>>4)&1)//µ¯²ÖÉÏÉı
+			  else if((remotedata[8]>>4)&1)//å¼¹ä»“ä¸Šå‡
 				{
-					/*¹¦ÄÜº¯Êı*/
+					/*åŠŸèƒ½å‡½æ•°*/
 			  }
-        else if((remotedata[8]>>4)&1)//µ¯²ÖÏÂ½µ
+        else if((remotedata[8]>>4)&1)//å¼¹ä»“ä¸‹é™
 				{
-					/*¹¦ÄÜº¯Êı*/
+					/*åŠŸèƒ½å‡½æ•°*/
 			  }				
 		  }	
       lastRemote[8] = remotedata[8];			

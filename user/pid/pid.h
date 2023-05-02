@@ -17,34 +17,34 @@ typedef struct _PID_TypeDef
 {
 	PID_ID id;
 	
-	float target;							//Ä¿±êÖµ
+	float target;							//ç›®æ ‡å€¼
 	float lastNoneZeroTarget;
 	float kp;
 	float ki;
 	float kd;
 
-	float   measure;					//²âÁ¿Öµ
-	float   err;							//Îó²î
-	float   last_err;      		//ÉÏ´ÎÎó²î
+	float   measure;					//æµ‹é‡å€¼
+	float   err;							//è¯¯å·®
+	float   last_err;      		//ä¸Šæ¬¡è¯¯å·®
 	
 	float pout;
 	float iout;
 	float dout;
 	
-	float output;						//±¾´ÎÊä³ö
-	float last_output;			//ÉÏ´ÎÊä³ö
+	float output;						//æœ¬æ¬¡è¾“å‡º
+	float last_output;			//ä¸Šæ¬¡è¾“å‡º
 	
-	float MaxOutput;				//Êä³öÏŞ·ù
-	float IntegralLimit;		//»ı·ÖÏŞ·ù
-	float DeadBand;			    //ËÀÇø£¨¾ø¶ÔÖµ£©
-	float ControlPeriod;		//¿ØÖÆÖÜÆÚ
-	float  Max_Err;					//×î´óÎó²î
+	float MaxOutput;				//è¾“å‡ºé™å¹…
+	float IntegralLimit;		//ç§¯åˆ†é™å¹…
+	float DeadBand;			    //æ­»åŒºï¼ˆç»å¯¹å€¼ï¼‰
+	float ControlPeriod;		//æ§åˆ¶å‘¨æœŸ
+	float  Max_Err;					//æœ€å¤§è¯¯å·®
 	
 	uint32_t thistime;
 	uint32_t lasttime;
   uint8_t  dtime;	
 	
-	void (*f_param_init)(struct _PID_TypeDef *pid,  //PID²ÎÊı³õÊ¼»¯
+	void (*f_param_init)(struct _PID_TypeDef *pid,  //PIDå‚æ•°åˆå§‹åŒ–
 				   PID_ID id,
 				   uint32_t  maxOutput,
 				   uint32_t integralLimit,
@@ -56,8 +56,8 @@ typedef struct _PID_TypeDef
 				   float ki,
 				   float kd );
 				   
-void (*f_pid_reset)(struct _PID_TypeDef *pid, float kp,float ki, float kd);		//pidÈı¸ö²ÎÊıĞŞ¸Ä
-float (*f_cal_pid)(struct _PID_TypeDef *pid, float measure);   //ÊäÈëËÙ¶ÈÊµ²âÖµ£¬Êä³ö¿ØÖÆµçÁ÷Öµ
+void (*f_pid_reset)(struct _PID_TypeDef *pid, float kp,float ki, float kd);		//pidä¸‰ä¸ªå‚æ•°ä¿®æ”¹
+float (*f_cal_pid)(struct _PID_TypeDef *pid, float measure);   //è¾“å…¥é€Ÿåº¦å®æµ‹å€¼ï¼Œè¾“å‡ºæ§åˆ¶ç”µæµå€¼
 }PID_TypeDef;
 
 void pid_init(PID_TypeDef* pid);
@@ -74,13 +74,13 @@ typedef struct
 {
     uint8_t mode;
     
-	//PID Èı²ÎÊı
+	//PID ä¸‰å‚æ•°
     fp32 Kp;
     fp32 Ki;
     fp32 Kd;
 
-    fp32 max_out;  //×î´óÊä³ö
-    fp32 max_iout; //×î´ó»ı·ÖÊä³ö
+    fp32 max_out;  //æœ€å¤§è¾“å‡º
+    fp32 max_iout; //æœ€å¤§ç§¯åˆ†è¾“å‡º
 
     fp32 set;
     fp32 fdb;
@@ -89,35 +89,35 @@ typedef struct
     fp32 Pout;
     fp32 Iout;
     fp32 Dout;
-    fp32 Dbuf[3];  //Î¢·ÖÏî 0×îĞÂ 1ÉÏÒ»´Î 2ÉÏÉÏ´Î
-    fp32 error[3]; //Îó²îÏî 0×îĞÂ 1ÉÏÒ»´Î 2ÉÏÉÏ´Î
+    fp32 Dbuf[3];  //å¾®åˆ†é¡¹ 0æœ€æ–° 1ä¸Šä¸€æ¬¡ 2ä¸Šä¸Šæ¬¡
+    fp32 error[3]; //è¯¯å·®é¡¹ 0æœ€æ–° 1ä¸Šä¸€æ¬¡ 2ä¸Šä¸Šæ¬¡
 
 } pid_type_def;
 
 /**
   * @brief          pid struct data init
-  * @param[out]     pid: PID½á¹¹Êı¾İÖ¸Õë
-  * @param[in]      mode: PID_POSITION:ÆÕÍ¨PID
-  *                 PID_DELTA: ²î·ÖPID
+  * @param[out]     pid: PIDç»“æ„æ•°æ®æŒ‡é’ˆ
+  * @param[in]      mode: PID_POSITION:æ™®é€šPID
+  *                 PID_DELTA: å·®åˆ†PID
   * @param[in]      PID: 0: kp, 1: ki, 2:kd
-  * @param[in]      max_out: pid×î´óÊä³ö
-  * @param[in]      max_iout: pid×î´ó»ı·ÖÊä³ö
+  * @param[in]      max_out: pidæœ€å¤§è¾“å‡º
+  * @param[in]      max_iout: pidæœ€å¤§ç§¯åˆ†è¾“å‡º
   * @retval         none
   */
 extern void PID_init(pid_type_def *pid, uint8_t mode, const fp32 PID[3], fp32 max_out, fp32 max_iout);
 
 /**
-  * @brief          pid¼ÆËã
-  * @param[out]     pid: PID½á¹¹Êı¾İÖ¸Õë
-  * @param[in]      ref: ·´À¡Êı¾İ
-  * @param[in]      set: Éè¶¨Öµ
-  * @retval         pidÊä³ö
+  * @brief          pidè®¡ç®—
+  * @param[out]     pid: PIDç»“æ„æ•°æ®æŒ‡é’ˆ
+  * @param[in]      ref: åé¦ˆæ•°æ®
+  * @param[in]      set: è®¾å®šå€¼
+  * @retval         pidè¾“å‡º
   */
 extern fp32 PID_calc(pid_type_def *pid, fp32 ref, fp32 set);
 
 /**
-  * @brief          pid Êä³öÇå³ı
-  * @param[out]     pid: PID½á¹¹Êı¾İÖ¸Õë
+  * @brief          pid è¾“å‡ºæ¸…é™¤
+  * @param[out]     pid: PIDç»“æ„æ•°æ®æŒ‡é’ˆ
   * @retval         none
   */
 extern void PID_clear(pid_type_def *pid);

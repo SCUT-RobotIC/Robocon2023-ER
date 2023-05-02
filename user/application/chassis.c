@@ -1,19 +1,19 @@
 /**
-  *   @brief ÕâÀïÊÇµ×ÅÌ¿ØÖÆ´úÂë
+  *   @brief è¿™é‡Œæ˜¯åº•ç›˜æ§åˆ¶ä»£ç 
 **/
 #include "chassis.h"
 #include "pid.h"
 #include "CAN_receive.h"
 #include "stm32f4xx_hal.h"
 
-//*****************PID¿ØÖÆ²¿·Ö´úÂë*******************************/
+//*****************PIDæ§åˆ¶éƒ¨åˆ†ä»£ç *******************************/
 	
-pid_type_def              motor_pid;      //ÉùÃ÷PIDÊı¾İ½á¹¹Ìå1
-extern PID_TypeDef   drive_motor_pid[4];  //ÉùÃ÷PIDÊı¾İ½á¹¹Ìå2
-const motor_measure_t   *motor_data[4];  //ÉùÃ÷µç»ú½á¹¹ÌåÖ¸Õë
+pid_type_def              motor_pid;      //å£°æ˜PIDæ•°æ®ç»“æ„ä½“1
+extern PID_TypeDef   drive_motor_pid[4];  //å£°æ˜PIDæ•°æ®ç»“æ„ä½“2
+const motor_measure_t   *motor_data[4];  //å£°æ˜ç”µæœºç»“æ„ä½“æŒ‡é’ˆ
 
 /**
-  * @brief          PID³õÊ¼»¯
+  * @brief          PIDåˆå§‹åŒ–
   */
 void chassis_init(){
 	for(int di=0; di<4; di++)
@@ -29,11 +29,11 @@ fp32 vy=0.0f;
 fp32 wz=0.0f;
 fp32 wheel_speed[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 /**
-  * @brief          ËÄ¸öÂóÂÖËÙ¶ÈÊÇÍ¨¹ıÈı¸ö²ÎÊı¼ÆËã³öÀ´µÄ
-  * @param[in]      vx_set: ×İÏòËÙ¶È
-  * @param[in]      vy_set: ºáÏòËÙ¶È
-  * @param[in]      wz_set: Ğı×ªËÙ¶È
-  * @param[out]     wheel_speed: ËÄ¸öÂÖ×ÓËÙ¶È
+  * @brief          å››ä¸ªéº¦è½®é€Ÿåº¦æ˜¯é€šè¿‡ä¸‰ä¸ªå‚æ•°è®¡ç®—å‡ºæ¥çš„
+  * @param[in]      vx_set: çºµå‘é€Ÿåº¦
+  * @param[in]      vy_set: æ¨ªå‘é€Ÿåº¦
+  * @param[in]      wz_set: æ—‹è½¬é€Ÿåº¦
+  * @param[out]     wheel_speed: å››ä¸ªè½®å­é€Ÿåº¦
   * @retval         none
   */
 static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 vy_set, const float wz_set, fp32 wheel_speed[4]){
@@ -45,32 +45,32 @@ static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 
 }
 
 /**
-  * @brief          ·¢ËÍµçÁ÷Êı¾İ¸øµç»ú
-  * @param[in]      wheel_speed: ËÄ¸öÂÖ×ÓËÙ¶È
-	* @note           µ×ÅÌµÄÂÖ×ÓÕıµçÁ÷ÎªË³Ê±Õë×ª¶¯
-	* @warning        Ò»¶¨ÒªÊ¹ÓÃËÙ¶È»·PID¿ØÖÆµç»ú£¬Ö±½ÓÓÃµçÁ÷¿ØÖÆ»áµ¼ÖÂµç»úÈ«ËÙÔË×ª 
+  * @brief          å‘é€ç”µæµæ•°æ®ç»™ç”µæœº
+  * @param[in]      wheel_speed: å››ä¸ªè½®å­é€Ÿåº¦
+	* @note           åº•ç›˜çš„è½®å­æ­£ç”µæµä¸ºé¡ºæ—¶é’ˆè½¬åŠ¨
+	* @warning        ä¸€å®šè¦ä½¿ç”¨é€Ÿåº¦ç¯PIDæ§åˆ¶ç”µæœºï¼Œç›´æ¥ç”¨ç”µæµæ§åˆ¶ä¼šå¯¼è‡´ç”µæœºå…¨é€Ÿè¿è½¬ 
   */
 static void chassis_control_loop(fp32 wheel_speed[4])  
 {
-		/// ÉèÖÃ¸÷µç»úµÄµÄÄ¿±ê×ªËÙÖµ£¨µ¥Î»rpm£©Ä¿Ç°»¹Î´È·¶¨Ó³Éä¹ØÏµ
+		/// è®¾ç½®å„ç”µæœºçš„çš„ç›®æ ‡è½¬é€Ÿå€¼ï¼ˆå•ä½rpmï¼‰ç›®å‰è¿˜æœªç¡®å®šæ˜ å°„å…³ç³»
 		drive_motor_pid[0].target = wheel_speed[0]*30/PI;  //   
 		drive_motor_pid[1].target = wheel_speed[1]*30/PI;  //
 		drive_motor_pid[2].target = wheel_speed[2]*30/PI;  //
 		drive_motor_pid[3].target = wheel_speed[3]*30/PI;  //
 				
-		drive_motor_pid[0].f_cal_pid(&drive_motor_pid[0],motor_data[0]->speed_rpm);   //1ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
-		drive_motor_pid[1].f_cal_pid(&drive_motor_pid[1],motor_data[1]->speed_rpm);   //2ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
-		drive_motor_pid[2].f_cal_pid(&drive_motor_pid[2],motor_data[2]->speed_rpm);   //3ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
-		drive_motor_pid[3].f_cal_pid(&drive_motor_pid[3],motor_data[3]->speed_rpm);   //4ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
+		drive_motor_pid[0].f_cal_pid(&drive_motor_pid[0],motor_data[0]->speed_rpm);   //1å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
+		drive_motor_pid[1].f_cal_pid(&drive_motor_pid[1],motor_data[1]->speed_rpm);   //2å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
+		drive_motor_pid[2].f_cal_pid(&drive_motor_pid[2],motor_data[2]->speed_rpm);   //3å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
+		drive_motor_pid[3].f_cal_pid(&drive_motor_pid[3],motor_data[3]->speed_rpm);   //4å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
 		
-		/// ½«µçÁ÷Öµ·¢ËÍ¸øµ×ÅÌµç»ú
+		/// å°†ç”µæµå€¼å‘é€ç»™åº•ç›˜ç”µæœº
 		CAN_cmd_chassis(drive_motor_pid[0].output,drive_motor_pid[1].output,drive_motor_pid[2].output,drive_motor_pid[3].output);					
 		HAL_Delay(2);
 }	
 
 
 /**
-  * @brief Ö´ĞĞµ×ÅÌ¿ØÖÆÈÎÎñ
+  * @brief æ‰§è¡Œåº•ç›˜æ§åˆ¶ä»»åŠ¡
   */
 
 void chassis_task()
@@ -80,27 +80,27 @@ void chassis_task()
 }
 
 /**
-  * @brief »ñÈ¡ËÄ¸öµç»úµÄ×´Ì¬Öµ£¬±ãÓÚdebug
+  * @brief è·å–å››ä¸ªç”µæœºçš„çŠ¶æ€å€¼ï¼Œä¾¿äºdebug
   */
 void chassis_state(){
 	
-	motor_data[0] = get_chassis_motor_measure_point(0);//»ñÈ¡IDÎª1ºÅµÄµç»úÊı¾İÖ¸Õë
-	motor_data[1] = get_chassis_motor_measure_point(1);//»ñÈ¡IDÎª2ºÅµÄµç»úÊı¾İÖ¸Õë
-	motor_data[2] = get_chassis_motor_measure_point(2);//»ñÈ¡IDÎª3ºÅµÄµç»úÊı¾İÖ¸Õë
-	motor_data[3] = get_chassis_motor_measure_point(3);//»ñÈ¡IDÎª4ºÅµÄµç»úÊı¾İÖ¸Õë
+	motor_data[0] = get_chassis_motor_measure_point(0);//è·å–IDä¸º1å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
+	motor_data[1] = get_chassis_motor_measure_point(1);//è·å–IDä¸º2å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
+	motor_data[2] = get_chassis_motor_measure_point(2);//è·å–IDä¸º3å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
+	motor_data[3] = get_chassis_motor_measure_point(3);//è·å–IDä¸º4å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
 }
 	
 static void compute_pid()
 {
-		motor_data[0] = get_chassis_motor_measure_point(0);//»ñÈ¡IDÎª1ºÅµÄµç»úÊı¾İÖ¸Õë
-		motor_data[1] = get_chassis_motor_measure_point(1);//»ñÈ¡IDÎª2ºÅµÄµç»úÊı¾İÖ¸Õë
-	  motor_data[2] = get_chassis_motor_measure_point(2);//»ñÈ¡IDÎª3ºÅµÄµç»úÊı¾İÖ¸Õë
-	  motor_data[3] = get_chassis_motor_measure_point(3);//»ñÈ¡IDÎª4ºÅµÄµç»úÊı¾İÖ¸Õë
+		motor_data[0] = get_chassis_motor_measure_point(0);//è·å–IDä¸º1å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
+		motor_data[1] = get_chassis_motor_measure_point(1);//è·å–IDä¸º2å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
+	  motor_data[2] = get_chassis_motor_measure_point(2);//è·å–IDä¸º3å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
+	  motor_data[3] = get_chassis_motor_measure_point(3);//è·å–IDä¸º4å·çš„ç”µæœºæ•°æ®æŒ‡é’ˆ
 	
-	  drive_motor_pid[0].f_cal_pid(&drive_motor_pid[0],motor_data[0]->speed_rpm);   //1ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
-		drive_motor_pid[1].f_cal_pid(&drive_motor_pid[1],motor_data[1]->speed_rpm);   //2ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
-		drive_motor_pid[2].f_cal_pid(&drive_motor_pid[2],motor_data[2]->speed_rpm);   //3ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
-		drive_motor_pid[3].f_cal_pid(&drive_motor_pid[3],motor_data[3]->speed_rpm);   //4ºÅµç»úµÄpidµçÁ÷¼ÆËãÖµ
+	  drive_motor_pid[0].f_cal_pid(&drive_motor_pid[0],motor_data[0]->speed_rpm);   //1å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
+		drive_motor_pid[1].f_cal_pid(&drive_motor_pid[1],motor_data[1]->speed_rpm);   //2å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
+		drive_motor_pid[2].f_cal_pid(&drive_motor_pid[2],motor_data[2]->speed_rpm);   //3å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
+		drive_motor_pid[3].f_cal_pid(&drive_motor_pid[3],motor_data[3]->speed_rpm);   //4å·ç”µæœºçš„pidç”µæµè®¡ç®—å€¼
 }
 void chassis_pid()
 {
@@ -109,7 +109,7 @@ void chassis_pid()
 
 static void send_can()
 {
-	/// ½«µçÁ÷Öµ·¢ËÍ¸øµ×ÅÌµç»ú
+	/// å°†ç”µæµå€¼å‘é€ç»™åº•ç›˜ç”µæœº
 		CAN_cmd_chassis(drive_motor_pid[0].output,drive_motor_pid[1].output,drive_motor_pid[2].output,drive_motor_pid[3].output);					
 		HAL_Delay(2);
 }

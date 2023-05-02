@@ -125,15 +125,15 @@ int main(void)
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
 	
-  can_filter_init();       //ÅäÖÃCAN¹ýÂËÆ÷
-	HAL_CAN_Start(&hcan1);   //¿ªÆôCAN×Ü¿ª¹Ø
-	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);//Æô¶¯CAN½ÓÊÕÖÐ¶Ï	
+  can_filter_init();       //é…ç½®CANè¿‡æ»¤å™¨
+	HAL_CAN_Start(&hcan1);   //å¼€å¯CANæ€»å¼€å…³
+	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);//å¯åŠ¨CANæŽ¥æ”¶ä¸­æ–­	
 	
-	/// PID ³õÊ¼»¯
+	/// PID åˆå§‹åŒ–
 	chassis_init();
 	
-	///´®¿ÚDMA³õÊ¼»¯
-	__HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE); //Ê¹ÄÜ´®¿Ú¿ÕÏÐÖÐ¶Ï                   
+	///ä¸²å£DMAåˆå§‹åŒ–
+	__HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE); //ä½¿èƒ½ä¸²å£ç©ºé—²ä¸­æ–­                   
   HAL_UART_Receive_DMA(&huart2,buffer,255);
 	USER_TIM_PWM_Init();
 	

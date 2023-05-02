@@ -1,11 +1,11 @@
 /**
-  *   @brief ÕâÀïÊÇCANÖĞ¶Ï½ÓÊÕº¯Êı£¬½ÓÊÕµç»úÊı¾İ,CAN·¢ËÍº¯Êı·¢ËÍµç»úµçÁ÷¿ØÖÆµç»ú.
+  *   @brief è¿™é‡Œæ˜¯CANä¸­æ–­æ¥æ”¶å‡½æ•°ï¼Œæ¥æ”¶ç”µæœºæ•°æ®,CANå‘é€å‡½æ•°å‘é€ç”µæœºç”µæµæ§åˆ¶ç”µæœº.
 **/
 #include "CAN_receive.h"
 #include "main.h"
 
-extern CAN_HandleTypeDef    hcan1;    //CAN´®¿Ú1
-extern CAN_HandleTypeDef    hcan2;    //CAN´®¿Ú2
+extern CAN_HandleTypeDef    hcan1;    //CANä¸²å£1
+extern CAN_HandleTypeDef    hcan2;    //CANä¸²å£2
 
 static motor_measure_t      motor_chassis[7];
 
@@ -14,7 +14,7 @@ static uint8_t              gimbal_can_send_data[8];
 static CAN_TxHeaderTypeDef  chassis_tx_message;
 static uint8_t              chassis_can_send_data[8];
 
-/// @brief µç»úÊı¾İµÄ¶ÁÈ¡
+/// @brief ç”µæœºæ•°æ®çš„è¯»å–
 #define get_motor_measure(ptr, data)                                    \
     {                                                                   \
         (ptr)->last_ecd = (ptr)->ecd;                                   \
@@ -26,13 +26,13 @@ static uint8_t              chassis_can_send_data[8];
 		
 		
 /*	
-µç»úÊı¾İ£º      0:µ×ÅÌµç»ú1 3508µç»ú,              1:µ×ÅÌµç»ú2 3508µç»ú,
-		            2:µ×ÅÌµç»ú3 3508µç»ú,              3:µ×ÅÌµç»ú4 3508µç»ú;
-                4:yawÔÆÌ¨µç»ú 6020µç»ú;            5:pitchÔÆÌ¨µç»ú 6020µç»ú; 
-		            6:²¦µ¯µç»ú 2006µç»ú
+ç”µæœºæ•°æ®ï¼š      0:åº•ç›˜ç”µæœº1 3508ç”µæœº,              1:åº•ç›˜ç”µæœº2 3508ç”µæœº,
+		            2:åº•ç›˜ç”µæœº3 3508ç”µæœº,              3:åº•ç›˜ç”µæœº4 3508ç”µæœº;
+                4:yawäº‘å°ç”µæœº 6020ç”µæœº;            5:pitchäº‘å°ç”µæœº 6020ç”µæœº; 
+		            6:æ‹¨å¼¹ç”µæœº 2006ç”µæœº
 */	
 
-/// @brief hal¿âCAN»Øµ÷º¯Êı,½ÓÊÕµç»úÊı¾İ
+/// @brief halåº“CANå›è°ƒå‡½æ•°,æ¥æ”¶ç”µæœºæ•°æ®
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     CAN_RxHeaderTypeDef rx_header;
@@ -65,11 +65,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 }
 
 /**
-  * @brief          ·¢ËÍµç»ú¿ØÖÆµçÁ÷(0x201,0x202,0x203,0x204)
-  * @param[in]      motor1: (0x201) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      motor2: (0x202) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      motor3: (0x203) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      motor4: (0x204) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
+  * @brief          å‘é€ç”µæœºæ§åˆ¶ç”µæµ(0x201,0x202,0x203,0x204)
+  * @param[in]      motor1: (0x201) 3508ç”µæœºæ§åˆ¶ç”µæµ, èŒƒå›´ [-16384,16384]
+  * @param[in]      motor2: (0x202) 3508ç”µæœºæ§åˆ¶ç”µæµ, èŒƒå›´ [-16384,16384]
+  * @param[in]      motor3: (0x203) 3508ç”µæœºæ§åˆ¶ç”µæµ, èŒƒå›´ [-16384,16384]
+  * @param[in]      motor4: (0x204) 3508ç”µæœºæ§åˆ¶ç”µæµ, èŒƒå›´ [-16384,16384]
   */
 
 void CAN_cmd_chassis(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4)
@@ -93,11 +93,11 @@ void CAN_cmd_chassis(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
 
 
 /**
-  * @brief          ·¢ËÍµç»ú¿ØÖÆµçÁ÷(0x205,0x206,0x207,0x208)
-  * @param[in]      yaw:   (0x205) 6020µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-30000,30000]
-  * @param[in]      pitch: (0x206) 6020µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-30000,30000]
-  * @param[in]      shoot: (0x207) 2006µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-10000,10000]
-  * @param[in]      rev:   (0x208) ±£Áô£¬µç»ú¿ØÖÆµçÁ÷
+  * @brief          å‘é€ç”µæœºæ§åˆ¶ç”µæµ(0x205,0x206,0x207,0x208)
+  * @param[in]      yaw:   (0x205) 6020ç”µæœºæ§åˆ¶ç”µæµ, èŒƒå›´ [-30000,30000]
+  * @param[in]      pitch: (0x206) 6020ç”µæœºæ§åˆ¶ç”µæµ, èŒƒå›´ [-30000,30000]
+  * @param[in]      shoot: (0x207) 2006ç”µæœºæ§åˆ¶ç”µæµ, èŒƒå›´ [-10000,10000]
+  * @param[in]      rev:   (0x208) ä¿ç•™ï¼Œç”µæœºæ§åˆ¶ç”µæµ
   */
 void CAN_cmd_gimbal(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
 {
@@ -118,7 +118,7 @@ void CAN_cmd_gimbal(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
 }
 
 
-//·¢ËÍIDÎª0x700µÄCAN°ü,Ëü»áÉèÖÃ3508µç»ú½øÈë¿ìËÙÉèÖÃID
+//å‘é€IDä¸º0x700çš„CANåŒ…,å®ƒä¼šè®¾ç½®3508ç”µæœºè¿›å…¥å¿«é€Ÿè®¾ç½®ID
 void CAN_cmd_chassis_reset_ID(void)
 {
     uint32_t send_mail_box;
@@ -138,30 +138,30 @@ void CAN_cmd_chassis_reset_ID(void)
     HAL_CAN_AddTxMessage(&CHASSIS_CAN, &chassis_tx_message, chassis_can_send_data, &send_mail_box);
 }
 
-//·µ»Ø 2006µç»úÊı¾İÖ¸Õë
+//è¿”å› 2006ç”µæœºæ•°æ®æŒ‡é’ˆ
 const motor_measure_t *get_trigger_motor_measure_point(void)
 {
     return &motor_chassis[6];
 }
 
-//·µ»Ø 3508µç»úÊı¾İÖ¸Õë
+//è¿”å› 3508ç”µæœºæ•°æ®æŒ‡é’ˆ
 const motor_measure_t *get_chassis_motor_measure_point(uint8_t i)
 {
     return &motor_chassis[(i & 0x03)];
 }
 
-//·µ»Øyaw 6020µç»úÊı¾İÖ¸Õë
+//è¿”å›yaw 6020ç”µæœºæ•°æ®æŒ‡é’ˆ
 const motor_measure_t *get_yaw_gimbal_motor_measure_point(void)
 {
     return &motor_chassis[4];
 }
 
-//·µ»Øpitch 6020µç»úÊı¾İÖ¸Õë  
+//è¿”å›pitch 6020ç”µæœºæ•°æ®æŒ‡é’ˆ  
 const motor_measure_t *get_pitch_gimbal_motor_measure_point(void)
 {
     return &motor_chassis[5];
 }
 
-//*******************************************************************ĞÂ¼Ó
+//*******************************************************************æ–°åŠ 
 
 

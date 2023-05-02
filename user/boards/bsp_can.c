@@ -4,7 +4,7 @@
 extern CAN_HandleTypeDef hcan1;
 
 /**
-  * @brief          滤波器配置，所有信号都可以通过
+  * @brief          婊ゆ尝鍣ㄩ厤缃紝鎵�鏈変俊鍙烽兘鍙互閫氳繃
   * @param[in]      none
   * @retval         none
   */
