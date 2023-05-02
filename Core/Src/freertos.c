@@ -152,7 +152,7 @@ void TaskAssignTask(void *argument)
 {
   /* USER CODE BEGIN TaskAssignTask */
   /* Infinite loop */
-	int flag=0;
+	int flag1=0;
   for(;;)
   {
 		if(!((lastRemote[2]==remotedata[2])&(lastRemote[3]==remotedata[3])&(lastRemote[6]==remotedata[6])))
@@ -163,38 +163,34 @@ void TaskAssignTask(void *argument)
 		lastRemote[6] = remotedata[6];
 		}
 		
+		//按键
 		if(lastRemote[8]!=remotedata[8]){
 			if(remotedata[8]!=0)
 			{
-				if((remotedata[8]>>4)&1){
-					if(flag==0){
+				if((remotedata[8]>>4)&1)//开启/关闭摩擦轮
+				{
+					if(flag1==0){
 					 Shot_Control(99);
-					 flag=1;
+					 flag1=1;
 					}
 				  else{
 					 Shot_Control(0);
-					 flag=0;
+					 flag1=0;
 				  }
-			 }		
+			  }
+			  else if((remotedata[8]>>4)&1)//弹仓上升
+				{
+					/*功能函数*/
+			  }
+        else if((remotedata[8]>>4)&1)//弹仓下降
+				{
+					/*功能函数*/
+			  }				
 		  }	
       lastRemote[8] = remotedata[8];			
 	}
-		
-		
-//		if(lastRemote[9]!=remotedata[9]){
-//			if(remotedata[9]!=0)
-//			{
-//				if(flag==0){
-//					BTS7960_Control(200,0);
-//				  flag=1;
-//				}
-//				else{
-//					BTS7960_Control(0,0);
-//					flag=0;
-//				}
-//			}
-//		 lastRemote[9] = remotedata[9];
-//		}		
+	
+	
 		
 			
     osDelay(1);

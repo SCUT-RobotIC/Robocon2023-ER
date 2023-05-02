@@ -1,12 +1,12 @@
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
-motor89\list.o: C:\download\ARM\ARMCC\Bin\..\include\stdlib.h
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-motor89\list.o: C:\download\ARM\ARMCC\Bin\..\include\stddef.h
-motor89\list.o: C:\download\ARM\ARMCC\Bin\..\include\stdint.h
-motor89\list.o: ../Core/Inc/FreeRTOSConfig.h
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-motor89\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+motor89/list.o: ..\Middlewares\Third_Party\FreeRTOS\Source\list.c \
+  C:\download\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  C:\download\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  C:\download\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h

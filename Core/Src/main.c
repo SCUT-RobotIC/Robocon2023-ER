@@ -69,7 +69,17 @@ void MX_FREERTOS_Init(void);
 		switch(GPIO_Pin)
 		{
 			case MOTOR_SWITCH_LEFT_UP_Pin:
-				HAL_GPIO_TogglePin(GPIOF,GPIO_PIN_13);
+				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 0);
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 0);
+			case MOTOR_SWITCH_RIGHT_UP_Pin:
+				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, 0);
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, 0);
+			case MOTOR_SWITCH_LEFT_DOWN_Pin:
+				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 0);
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 0);
+			case MOTOR_SWITCH_RIGHT_DOWN_Pin:
+				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, 0);
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, 0);
 		}
 	}
 /* USER CODE END 0 */

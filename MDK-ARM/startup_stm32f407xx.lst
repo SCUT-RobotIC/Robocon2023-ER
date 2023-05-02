@@ -850,12 +850,14 @@ ARM Macro Assembler    Page 14
 
 
 o -I../Core/Inc -I.\RTE\_Motor89 -IC:\Users\56428\AppData\Local\Arm\Packs\ARM\C
-MSIS\5.8.0\CMSIS\Core\Include -IC:\Users\56428\AppData\Local\Arm\Packs\Keil\STM
-32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\56428\Ap
-pData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Device\Include --predefine="__U
-VISION_VERSION SETA 536" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SE
-TA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f4
-07xx.s
+MSIS\5.8.0\CMSIS\Core\Include -IC:\Users\56428\AppData\Local\Arm\Packs\ARM\CMSI
+S\5.8.0\CMSIS\DSP\Include -IC:\Users\56428\AppData\Local\Arm\Packs\ARM\CMSIS\5.
+8.0\CMSIS\DSP\PrivateInclude -IC:\Users\56428\AppData\Local\Arm\Packs\Keil\STM3
+2F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\56428\App
+Data\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Device\Include --predefine="__UV
+ISION_VERSION SETA 536" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SET
+A 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f40
+7xx.s
 
 
 

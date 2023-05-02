@@ -22,7 +22,7 @@ typedef struct _PID_TypeDef
 	float kp;
 	float ki;
 	float kd;
-	
+
 	float   measure;					//测量值
 	float   err;							//误差
 	float   last_err;      		//上次误差

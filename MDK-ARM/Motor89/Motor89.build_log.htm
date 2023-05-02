@@ -9,12 +9,12 @@ License Information: w xiao, inter, LIC=WHYH9-41AWH-01GP1-CM1M0-USX4I-3SY5K
  
 Tool Versions:
 Toolchain:       MDK-ARM Plus  Version: 5.36.0.0
-Toolchain Path:  C:\download\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 7 (build 960)
-Assembler:       Armasm.exe V5.06 update 7 (build 960)
-Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
-Library Manager: ArmAr.exe V5.06 update 7 (build 960)
-Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+Toolchain Path:  C:\download\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.16
+Assembler:       Armasm.exe V6.16
+Linker/Locator:  ArmLink.exe V6.16
+Library Manager: ArmAr.exe V6.16
+Hex Converter:   FromElf.exe V6.16
 CPU DLL:         SARMCM3.DLL V5.36.0.0
 Dialog DLL:      DCM.DLL V1.17.3.0
 Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
@@ -22,17 +22,14 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 E:\32Project\RC2023\ER_Control\MDK-ARM\Motor89.uvprojx
-Project File Date:  05/01/2023
+Project File Date:  05/02/2023
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\download\ARM\ARMCC\Bin'
+*** Using Compiler 'V6.16', folder: 'C:\download\ARM\ARMCLANG\Bin'
 Build target 'Motor89'
-compiling stm32f4xx_hal_gpio.c...
-compiling stm32f4xx_it.c...
-compiling idlenew.c...
-compiling main.c...
+compiling pid.c...
 linking...
-Program Size: Code=26632 RO-data=556 RW-data=188 ZI-data=23636  
+Program Size: Code=32446 RO-data=1002 RW-data=16 ZI-data=23696  
 FromELF: creating hex file...
 "Motor89\Motor89.axf" - 0 Error(s), 0 Warning(s).
 
@@ -43,6 +40,7 @@ Package Vendor: ARM
                 ARM.CMSIS.5.8.0
                 CMSIS (Common Microcontroller Software Interface Standard)
    * Component: CORE Version: 5.5.0
+   * Component: DSP Variant: Source Version: 1.9.0-dev
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.15.0.pack
@@ -52,12 +50,50 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   .\RTE\_Motor89
   C:\Users\56428\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  C:\Users\56428\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\DSP\Include
+  C:\Users\56428\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\DSP\PrivateInclude
   C:\Users\56428\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.5.0
-Build Time Elapsed:  00:00:03
+
+   * Component: ARM::CMSIS:DSP:Source:1.9.0-dev
+      Include file:  CMSIS\DSP\Include\arm_math_f16.h
+      Include file:  CMSIS\DSP\Include\arm_math.h
+      Include file:  CMSIS\DSP\Include\arm_common_tables.h
+      Source file:   CMSIS\DSP\Source\StatisticsFunctions\StatisticsFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\DistanceFunctions\DistanceFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\MatrixFunctions\MatrixFunctions.c
+      Source file:   CMSIS\DSP\Source\TransformFunctions\TransformFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\FastMathFunctions\FastMathFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\ControllerFunctions\ControllerFunctions.c
+      Source file:   CMSIS\DSP\Source\BasicMathFunctions\BasicMathFunctions.c
+      Include file:  CMSIS\DSP\Include\arm_const_structs_f16.h
+      Source file:   CMSIS\DSP\Source\QuaternionMathFunctions\QuaternionMathFunctions.c
+      Source file:   CMSIS\DSP\Source\BayesFunctions\BayesFunctions.c
+      Source file:   CMSIS\DSP\Source\SupportFunctions\SupportFunctions.c
+      Source file:   CMSIS\DSP\Source\CommonTables\CommonTables.c
+      Source file:   CMSIS\DSP\Source\StatisticsFunctions\StatisticsFunctions.c
+      Source file:   CMSIS\DSP\Source\SVMFunctions\SVMFunctions.c
+      Source file:   CMSIS\DSP\Source\FilteringFunctions\FilteringFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\ComplexMathFunctions\ComplexMathFunctions.c
+      Source file:   CMSIS\DSP\Source\DistanceFunctions\DistanceFunctions.c
+      Source file:   CMSIS\DSP\Source\TransformFunctions\TransformFunctions.c
+      Source file:   CMSIS\DSP\Source\CommonTables\CommonTablesF16.c
+      Include file:  CMSIS\DSP\Include\arm_common_tables_f16.h
+      Source file:   CMSIS\DSP\Source\InterpolationFunctions\InterpolationFunctions.c
+      Source file:   CMSIS\DSP\Source\MatrixFunctions\MatrixFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\ComplexMathFunctions\ComplexMathFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\InterpolationFunctions\InterpolationFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\SupportFunctions\SupportFunctionsF16.c
+      Include file:  CMSIS\DSP\Include\arm_const_structs.h
+      Source file:   CMSIS\DSP\Source\FilteringFunctions\FilteringFunctions.c
+      Source file:   CMSIS\DSP\Source\BasicMathFunctions\BasicMathFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\FastMathFunctions\FastMathFunctions.c
+      Source file:   CMSIS\DSP\Source\BayesFunctions\BayesFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\SVMFunctions\SVMFunctionsF16.c
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

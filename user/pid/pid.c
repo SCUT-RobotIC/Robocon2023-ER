@@ -33,8 +33,8 @@ PID_TypeDef    drive_motor_pid[4];           //四个电机
 static void pid_param_init(
 	PID_TypeDef * pid, 
 	PID_ID    id,
-	uint16_t  maxout,
-	uint16_t  intergral_limit,
+	uint32_t  maxout,
+	uint32_t  intergral_limit,
 	float     deadband,
 	uint16_t  period,
 	int16_t   max_err,
@@ -119,6 +119,3 @@ void pid_init(PID_TypeDef* pid)
 	pid->f_pid_reset = pid_reset;
 	pid->f_cal_pid = pid_calculate;
 }
-	
-
-
