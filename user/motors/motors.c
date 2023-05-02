@@ -43,12 +43,22 @@ void Shot_Control(uint16_t pwmval)
 
 void Servo_Control1(uint16_t angle)
 {
-	angle = (0.5 + angle / 180.0 * (2.5 - 0.5)) / 20.0 * 99;
+	angle = (0.5 + angle / 180.0 * (2.5 - 0.5)) / 20.0 * 1679;
 	__HAL_TIM_SetCompare(&htim12, TIM_CHANNEL_1, angle);
 }
 
 void Servo_Control2 (uint16_t angle)
 {
-	angle = (0.5 + angle / 180.0 * (2.5 - 0.5)) / 20.0 * 99;
+	angle = (0.5 + (float)(angle) / 270.0 * (2.5 - 0.5)) / 20.0 * 1679;
 	__HAL_TIM_SetCompare(&htim12, TIM_CHANNEL_2, angle);
+}
+
+void Rise_Control_Left(uint16_t pwmval1,uint16_t pwmval2){
+	__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, pwmval1);
+  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, pwmval2);
+}
+
+void Rise_Control_Right(uint16_t pwmval1,uint16_t pwmval2){
+	__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, pwmval2);
+  __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, pwmval1);
 }

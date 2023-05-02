@@ -32,7 +32,7 @@
 #include "CAN_receive.h"
 #include "chassis.h"
 #include "motors.h"
-
+#include "BDC.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,24 +64,21 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-  void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-	{
-		switch(GPIO_Pin)
-		{
-			case MOTOR_SWITCH_LEFT_UP_Pin:
-				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 0);
-        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 0);
-			case MOTOR_SWITCH_RIGHT_UP_Pin:
-				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, 0);
-        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, 0);
-			case MOTOR_SWITCH_LEFT_DOWN_Pin:
-				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, 0);
-        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, 0);
-			case MOTOR_SWITCH_RIGHT_DOWN_Pin:
-				__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, 0);
-        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, 0);
-		}
-	}
+//  void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+//	{
+//		switch(GPIO_Pin)
+//		{
+//			case MOTOR_SWITCH_LEFT_UP_Pin:
+//			case MOTOR_SWITCH_LEFT_DOWN_Pin:
+//				Rise_Control_Left(0,0);
+//				break;
+
+//			case MOTOR_SWITCH_RIGHT_UP_Pin:
+//			case MOTOR_SWITCH_RIGHT_DOWN_Pin:
+//				Rise_Control_Right(0,0);
+//			  break;
+//		}
+//	}
 /* USER CODE END 0 */
 
 /**
@@ -125,18 +122,21 @@ int main(void)
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
 	
-  can_filter_init();       //配置CAN过滤器
-	HAL_CAN_Start(&hcan1);   //开启CAN总开关
+  can_filter_init();       //配置CAN过滤�?
+	HAL_CAN_Start(&hcan1);   //�?启CAN总开�?
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);//启动CAN接收中断	
 	
-	/// PID 初始化
+	/// PID 初始�?
 	chassis_init();
 	
-	///串口DMA初始化
+	///串口DMA初始�?
 	__HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE); //使能串口空闲中断                   
   HAL_UART_Receive_DMA(&huart2,buffer,255);
 	USER_TIM_PWM_Init();
 	
+	///升降电机初始�?
+	BDC_InitMotor(0,&htim1,&htim2,TIM_CHANNEL_1,TIM_CHANNEL_2,0,0,0,0,0,0);
+	BDC_InitMotor(1,&htim1,&htim5,TIM_CHANNEL_3,TIM_CHANNEL_4,0,0,0,0,0,0);
   /* USER CODE END 2 */
 
   /* Init scheduler */
