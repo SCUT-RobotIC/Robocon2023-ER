@@ -178,11 +178,11 @@ void TaskAssignTask(void *argument)
 					 flag1=0;
 				  }
 			  }
-			  else if((remotedata[8]>>4)&1)//弹仓上升
+			  else if((remotedata[8])&1)//弹仓上升 A
 				{
 					/*功能函数*/
 			  }
-        else if((remotedata[8]>>4)&1)//弹仓下降
+        else if((remotedata[8]>>1)&1)//弹仓下降 B
 				{
 					/*功能函数*/
 			  }				
