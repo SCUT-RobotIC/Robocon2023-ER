@@ -27,14 +27,15 @@ void Servo_Control1(uint16_t angle);
 void Servo_Control2(uint16_t angle);
 
 /**
- * @brief 升降结构左侧运动控制，TIM12 CH1
+ * @brief 升降结构左侧运动控制
  * @param pwmval1,pwmval2
  */
 void Rise_Control_Left(uint16_t pwmval1, uint16_t pwmval2);
 
 /**
- * @brief 升降结构右侧运动控制，TIM12 CH2
+ * @brief 升降结构右侧运动控制
  * @param pwmval1,pwmval2
  */
 void Rise_Control_Right(uint16_t pwmval1, uint16_t pwmval2);
+
 #endif
