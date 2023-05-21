@@ -83,9 +83,9 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
   for(int i = 0;i < 13;i++)
-	{
-		lastRemote[i]=0;
-	}
+    {
+        lastRemote[i]=0;
+    }
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -134,8 +134,8 @@ void SendCanTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-		chassis_sendcan();
-		chassis_pid();
+    chassis_sendcan();
+    chassis_pid();
     osDelay(1);
   }
   /* USER CODE END SendCanTask */
@@ -152,94 +152,106 @@ void TaskAssignTask(void *argument)
 {
   /* USER CODE BEGIN TaskAssignTask */
   /* Infinite loop */
-	int flag1=0;
-	int flag2=0;
-	int flag3=0;
-	int flag4=0;
-	int flag5=0;
+    int flag1 = 0;
+    int flag2 = 0;
+    int flag3 = 0;
+    int flag4 = 0;
+    int flag5 = 0;
   for(;;)
   {
-		if(!((lastRemote[2]==remotedata[2])&(lastRemote[3]==remotedata[3])&(lastRemote[6]==remotedata[6])))
-		{
-		chassis_changeSpeed(remotedata[2], remotedata[3], remotedata[6]);
-		lastRemote[2] = remotedata[2];
-		lastRemote[3] = remotedata[3];
-		lastRemote[6] = remotedata[6];
-		}
-		
-		//按键
-		if(lastRemote[8]!=remotedata[8]){
-			if(remotedata[8]!=0)
-			{
-				if((remotedata[8]>>4)&1)//�?�?/关闭摩擦�?
-				{
-					if(flag1==0){
-					 Shot_Control(99);
-					 flag1=1;
-					}
-				  else{
-					 Shot_Control(0);
-					 flag1=0;
-				  }
-			  }
-			  else if((remotedata[8])&1)//弹仓上升 A
-				{
-					if(flag2==0){
-           Rise_Control_Left(1500,0);
-					 Rise_Control_Right(1500,0);
-					 flag2=1;
-					}
-				  else{
-					 Rise_Control_Left(0,0);
-					 Rise_Control_Right(0,0);
-					 flag2=0;
-				  }
-			  }
-        else if((remotedata[8]>>1)&1)//弹仓下降 B
-				{
-					if(flag3==0){
-           Rise_Control_Left(0,1500);
-					 Rise_Control_Right(0,1500);
-					 flag3=1;
-					}
-				  else{
-					 Rise_Control_Left(0,0);
-					 Rise_Control_Right(0,0);
-					 flag3=0;
-				  }
-			  }
-        else if((remotedata[8]>>2)&1)//舵机�? X
-				{
-					if(flag4==0){
-					 Servo_Control2(35);
-					 flag4=1;
-					}
-				  else{
-					 Servo_Control2(155);
-					 flag4=0;
-				  }
-					
-				}
-				else if((remotedata[8]>>3)&1)//舵机�? Y
-				{
-					if(flag5==0){					 
-						 Servo_Control1(0);
-					 flag5=1;
-					}
-				  else{
-					 Servo_Control1(90);
-					 flag5=0;
-				  }
-				}
-		  }	
-      lastRemote[8] = remotedata[8];			
-	}
-	
-	
-		
-			
+		 // 底盘速度改变
+     if(!(
+			 (lastRemote[2] == remotedata[2]) &
+		   (lastRemote[3] == remotedata[3]) &
+		   (lastRemote[6] == remotedata[6])
+		 ))
+     {
+       chassis_changeSpeed(remotedata[2], remotedata[3], remotedata[6]);
+       lastRemote[2] = remotedata[2];
+       lastRemote[3] = remotedata[3];
+       lastRemote[6] = remotedata[6];
+     }
+        
+     // 按键控制功能
+     if (lastRemote[8] != remotedata[8])
+		 {
+       if (remotedata[8] != 0)
+       {
+         if ((remotedata[8] >> 4) & 1)// 开启关闭摩擦轮
+         {
+           if(flag1 == 0)
+					 {
+             Shot_Control(99);
+             flag1 = 1;
+           }
+           else
+					 {
+             Shot_Control(0);
+             flag1 = 0;
+           }
+         } 
+         else if((remotedata[8]) & 1)// 弹仓上升 按键A
+         {
+           if (flag2 == 0)
+					 {
+             Rise_Control_Left(1500, 0);
+             Rise_Control_Right(1500, 0);
+             flag2 = 1;
+           }
+           else
+					 {
+             Rise_Control_Left(0, 0);
+             Rise_Control_Right(0, 0);
+             flag2 = 0;
+           }
+         }
+          else if((remotedata[8] >> 1) & 1)// 弹仓下降 按键B
+          {
+            if(flag3 == 0)
+						{
+              Rise_Control_Left(0, 1500);
+              Rise_Control_Right(0, 1500);
+              flag3 = 1;
+            }
+            else
+						{
+              Rise_Control_Left(0, 0);
+              Rise_Control_Right(0, 0);
+              flag3 = 0;
+            }
+          }
+          else if((remotedata[8] >> 2) & 1)// 舵机下 X
+          {
+            if(flag4 == 0)
+						{
+              Servo_Control2(35);
+              flag4 = 1;
+            }
+            else
+						{
+              Servo_Control2(155);
+              flag4 = 0;
+            }
+          }
+          else if((remotedata[8] >> 3) & 1)// 舵机上 Y
+          {
+            if(flag5 == 0)
+					  {					 
+              Servo_Control1(0);
+              flag5 = 1;
+            }
+            else
+					  {
+              Servo_Control1(90);
+              flag5 = 0;
+            }
+          }
+        }	
+       lastRemote[8] = remotedata[8];			
+    }
+               
     osDelay(1);
-	vTaskSuspend(myTaskAssignHandle);
+    vTaskSuspend(myTaskAssignHandle);
   }
   /* USER CODE END TaskAssignTask */
 }
