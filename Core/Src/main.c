@@ -123,13 +123,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	
 	/* 用户初始化*/
-  can_filter_init();       // 配置CAN过滤器
-	HAL_CAN_Start(&hcan1);   // 开启CAN总开关
+  can_filter_init();      // 配置CAN过滤器
+	HAL_CAN_Start(&hcan1);  // 开启CAN总开关
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);  // 启动CAN接收中断	
 	chassis_init();         // PID 初始化
-	__HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE); // 使能串口空闲中断                   
-  HAL_UART_Receive_DMA(&huart2,buffer,255);   // 开启串口DMA传输
-	USER_TIM_PWM_Init();  // PWM及编码器定时器初始化
+	__HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);  // 使能串口空闲中断                   
+  HAL_UART_Receive_DMA(&huart2, buffer, 255);   // 开启串口DMA传输
+	USER_TIM_PWM_Init();    // PWM及编码器定时器初始化
   /* USER CODE END 2 */
 
   /* Init scheduler */
