@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -31,7 +31,6 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
 
 /* USER CODE END Includes */
 
@@ -58,18 +57,24 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define MOTOR_SWITCH_LEFT_UP_Pin GPIO_PIN_11
-#define MOTOR_SWITCH_LEFT_UP_GPIO_Port GPIOF
-#define MOTOR_SWITCH_LEFT_UP_EXTI_IRQn EXTI15_10_IRQn
-#define MOTOR_SWITCH_LEFT_DOWN_Pin GPIO_PIN_12
-#define MOTOR_SWITCH_LEFT_DOWN_GPIO_Port GPIOF
-#define MOTOR_SWITCH_LEFT_DOWN_EXTI_IRQn EXTI15_10_IRQn
-#define MOTOR_SWITCH_RIGHT_DOWN_Pin GPIO_PIN_14
-#define MOTOR_SWITCH_RIGHT_DOWN_GPIO_Port GPIOF
-#define MOTOR_SWITCH_RIGHT_DOWN_EXTI_IRQn EXTI15_10_IRQn
-#define MOTOR_SWITCH_RIGHT_UP_Pin GPIO_PIN_15
-#define MOTOR_SWITCH_RIGHT_UP_GPIO_Port GPIOF
-#define MOTOR_SWITCH_RIGHT_UP_EXTI_IRQn EXTI15_10_IRQn
+#define T9C1_friwheel_Pin GPIO_PIN_5
+#define T9C1_friwheel_GPIO_Port GPIOE
+#define T2C3_reload_Pin GPIO_PIN_10
+#define T2C3_reload_GPIO_Port GPIOB
+#define T2C4_reload_Pin GPIO_PIN_11
+#define T2C4_reload_GPIO_Port GPIOB
+#define T4C1_upload_Pin GPIO_PIN_12
+#define T4C1_upload_GPIO_Port GPIOD
+#define T4C3_maxload_Pin GPIO_PIN_14
+#define T4C3_maxload_GPIO_Port GPIOD
+#define T4C4_Catch_Pin GPIO_PIN_15
+#define T4C4_Catch_GPIO_Port GPIOD
+#define T8C1_friwheel_Pin GPIO_PIN_6
+#define T8C1_friwheel_GPIO_Port GPIOC
+#define T8C2_friwheel_Pin GPIO_PIN_7
+#define T8C2_friwheel_GPIO_Port GPIOC
+#define T1C1_friwheel_Pin GPIO_PIN_8
+#define T1C1_friwheel_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 
