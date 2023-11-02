@@ -56,7 +56,9 @@
 #define ch_ca_s1  4  // two type 
 #define ch_pi_s1  7  // the pich
 
-
+#define reloadangle 50 
+#define upperangle   85
+#define lowerangle   40 
 
 // 定义常量，用于表示数组的�?
 
@@ -257,14 +259,14 @@ void StartDefaultTask(void const * argument)
 				state_reload = 1 ; 
 				if(reload_time == 0){
 				
-				target_position = 135  ;
-							if(Position <= 137 ){
+				target_position = lowerangle  ;
+							if(Position <= lowerangle + 5 ){
 								reload_time = 1;
 							}
 
 				}
 				else if(reload_time == 1){
-				target_position = 140  ; // 	
+				target_position = reloadangle  ; // 	
 				}
 				
 			//	target_position = 150;
@@ -274,13 +276,13 @@ void StartDefaultTask(void const * argument)
 				state_reload = -1 ; 
 				if(reload_time == 0){
 				
-				target_position = 135  ;
-							if(Position  <= 137 ){
+				target_position = lowerangle  ;
+							if(Position  <= lowerangle + 2 ){
 								reload_time = 1;
 							}
 				}
 				else if(reload_time == 1){
-				target_position = 140  ; //
+				target_position = reloadangle  ; //
 					
 				}
 			//	target_position = 150; //
@@ -367,17 +369,7 @@ void StartTask02(void const * argument)
   for(;;)
   {
 		if(state >=0){
-			
-			
-			
-			
-			
-			
-			
-		
-			
-			
-			
+						
 			//reload a complex relad
 			if(state_reload == 0){
 				
@@ -753,7 +745,7 @@ int map_value(int x) {
         x = 255;
     }
     // 根据线濧映射公式，计算y的忿
-    y = 180 + (130- 180 )* (x) / 255;
+    y = upperangle + (lowerangle - upperangle )* (x) / 255;
     // 返回y的忿
     return y;
 }

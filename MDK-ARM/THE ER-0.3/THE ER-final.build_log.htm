@@ -22,12 +22,25 @@ Dialog DLL:      TCM.DLL V1.48.0.0
  
 <h2>Project:</h2>
 F:\THE_LIBRARY\CODE_BASE\ROBOSERVO\THE ER-0.3-final-0.9-zero-current_branch\THE ER-0.3-final\MDK-ARM\THE ER-0.3.uvprojx
-Project File Date:  07/03/2023
+Project File Date:  07/17/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'F:\keil\ARM\ARMCC\Bin'
 Build target 'THE ER-0.3'
-"THE ER-0.3\THE ER-final.axf" - 0 Error(s), 0 Warning(s).
+compiling freertos.c...
+../MDK-ARM/pitch.h(151): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      (float)(current_position - motor->last_position) * SAMPLING_FREQUENCY / PITCH_SPEED_FACTOR;  // 当前速度
+../MDK-ARM/pitch.h(184): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+    motor->position_controller.Ki = i_position / SAMPLING_FREQUENCY;
+../MDK-ARM/pitch.h(197): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+    motor->position_controller.Kd = d_position * SAMPLING_FREQUENCY;
+../MDK-ARM/pitch_init.h(24): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/freertos.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=32116 RO-data=656 RW-data=232 ZI-data=18856  
+FromELF: creating hex file...
+"THE ER-0.3\THE ER-final.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -51,7 +64,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
